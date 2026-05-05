@@ -27,6 +27,7 @@
 
     button,
     .button,
+    .reset-button,
     .hint-box,
     .explanation-box,
     .answer-button,
@@ -111,7 +112,7 @@
 
     .container {
       text-align: center;
-      width: min(100%, 520px);
+      width: min(100%, 620px);
     }
 
     .monitor {
@@ -136,8 +137,10 @@
     .buttons {
       display: flex;
       justify-content: center;
-      gap: clamp(14px, 4vw, 24px);
+      align-items: center;
+      gap: clamp(12px, 3vw, 24px);
       margin-bottom: clamp(28px, 5vw, 40px);
+      flex-wrap: nowrap;
     }
 
     .button {
@@ -152,6 +155,7 @@
       color: #111;
       box-shadow: 0 6px 0 #999;
       transition: transform 0.1s, box-shadow 0.1s;
+      flex: 0 0 auto;
     }
 
     .button.show-arrow {
@@ -159,6 +163,27 @@
     }
 
     .button:active {
+      transform: translateY(6px);
+      box-shadow: 0 0 0 #999;
+    }
+
+    .reset-button {
+      min-width: clamp(74px, 15vw, 92px);
+      height: clamp(52px, 10vw, 64px);
+      padding: 0 clamp(10px, 2vw, 16px);
+      border-radius: 999px;
+      border: clamp(3px, 0.8vw, 4px) solid #333;
+      background: #ddd;
+      color: #111;
+      cursor: pointer;
+      font-size: clamp(13px, 2.5vw, 18px);
+      font-weight: bold;
+      box-shadow: 0 6px 0 #999;
+      transition: transform 0.1s, box-shadow 0.1s;
+      flex: 0 0 auto;
+    }
+
+    .reset-button:active {
       transform: translateY(6px);
       box-shadow: 0 0 0 #999;
     }
@@ -441,12 +466,20 @@
       }
 
       .buttons {
-        gap: 14px;
+        gap: 10px;
+        padding: 0 10px;
       }
 
       .button {
-        width: min(18vw, 58px);
-        height: min(18vw, 58px);
+        width: min(15vw, 56px);
+        height: min(15vw, 56px);
+      }
+
+      .reset-button {
+        min-width: min(21vw, 82px);
+        height: min(15vw, 56px);
+        font-size: 13px;
+        padding: 0 10px;
       }
 
       .answer-area {
@@ -473,7 +506,7 @@
       }
 
       .buttons {
-        gap: 10px;
+        gap: 8px;
       }
 
       .answer-area {
@@ -490,6 +523,11 @@
       .explanation-box {
         width: min(29vw, 110px);
         font-size: 14px;
+      }
+
+      .reset-button {
+        font-size: 12px;
+        min-width: 68px;
       }
     }
   </style>
@@ -518,6 +556,7 @@
         <button class="button" id="downButton" onclick="move(1, 0)">↓</button>
         <button class="button" id="leftButton" onclick="move(0, -1)">←</button>
         <button class="button" id="rightButton" onclick="move(0, 1)">→</button>
+        <button class="reset-button" onclick="resetPosition()">RESET</button>
       </div>
 
       <div class="answer-area">
@@ -640,8 +679,11 @@
 
     const correctAnswer = "3240";
 
-    let row = 0;
-    let col = 1;
+    const initialRow = 0;
+    const initialCol = 1;
+
+    let row = initialRow;
+    let col = initialCol;
     let messageTimer = null;
     let selectedHint = null;
     let showFormulaMode = false;
@@ -709,6 +751,12 @@
 
       row = nextRow;
       col = nextCol;
+      updateMonitor();
+    }
+
+    function resetPosition() {
+      row = initialRow;
+      col = initialCol;
       updateMonitor();
     }
 
