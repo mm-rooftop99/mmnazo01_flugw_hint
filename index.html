@@ -455,9 +455,9 @@
 
       .hint-box,
       .explanation-box {
-        width: min(30vw, 130px);
-        min-height: 56px;
-        font-size: 16px;
+        width: min(24vw, 110px);
+        min-height: 52px;
+        font-size: 14px;
       }
 
       .monitor {
@@ -521,8 +521,8 @@
 
       .hint-box,
       .explanation-box {
-        width: min(29vw, 110px);
-        font-size: 14px;
+        width: min(22vw, 92px);
+        font-size: 12px;
       }
 
       .reset-button {
@@ -544,6 +544,7 @@
   <div class="side-area">
     <div class="hint-box" id="hintBox1" onclick="openHintModal(1)">ヒント1</div>
     <div class="hint-box" id="hintBox2" onclick="openHintModal(2)">ヒント2</div>
+    <div class="hint-box" id="hintBox3" onclick="openHintModal(3)">ヒント3</div>
     <div class="explanation-box" id="explanationBox" onclick="openExplanation()">解説</div>
   </div>
 
@@ -837,6 +838,11 @@
           "ヒント2を表示しますか？\nこのヒントではこの謎の真相に大きく近づきます。";
       }
 
+      if (hintNumber === 3) {
+        document.getElementById("hintModalText").textContent =
+          "ヒント3を表示しますか？\nこのヒントでは答えにかなり近づきます。";
+      }
+
       document.getElementById("hintModal").style.display = "flex";
     }
 
@@ -856,6 +862,10 @@
       if (selectedHint === 2) {
         showFormulaMode = true;
         updateMonitor();
+      }
+
+      if (selectedHint === 3) {
+        document.getElementById("answerInput").placeholder = "CLEARを入力";
       }
 
       closeHintModal();
